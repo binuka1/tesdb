@@ -13,7 +13,7 @@ app.use(express.json());
 const pool = mariadb.createPool({
   host: "localhost",
   user: "root",
-  password: "vendix", // your MariaDB password
+  password: "vendix",  // change if needed
   database: "shopdb",
   connectionLimit: 5
 });
@@ -32,4 +32,5 @@ app.get("/products", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Server running: http://localhost:${PORT}`));
+// Listen on all interfaces for LAN access
+app.listen(PORT, "0.0.0.0", () => console.log(`Server running on http://10.112.201.237:${PORT}`));
