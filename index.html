@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MariaDB Products</title>
+</head>
+<body>
+    <h1>Products Table</h1>
+    <table border="1" id="productsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function loadProducts() {
+            try {
+                const res = await fetch("http://localhost:3000/products");
+                const products = await res.json();
+                const tbody = document.querySelector("#productsTable tbody");
+                tbody.innerHTML = "";
+                products.forEach(p => {
+                    const row = `<tr>
+                        <td>${p.id}</td>
+                        <td>${p.name}</td>
+                        <td>${p.price}</td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>
