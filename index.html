@@ -2,100 +2,37 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Products Table</title>
+<title>Server Connection Test</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 30px;
-    background-color: #f5f7fa;
-}
-h1 {
-    color: #333;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-th, td {
-    border: 1px solid #333;
-    padding: 10px;
-    text-align: left;
-}
-th {
-    background-color: #4CAF50;
-    color: white;
-}
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-button {
-    padding: 8px 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-button:hover {
-    background-color: #0b7dda;
-}
+body { font-family: Arial; margin: 20px; background: #f5f5f5; }
+h1 { color: #333; }
+#status { margin-top: 20px; font-weight: bold; }
+button { padding: 8px 15px; margin-top: 10px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; }
+button:hover { background: #0b7dda; }
 </style>
 </head>
 <body>
-<h1>Products Table</h1>
-
-<table id="productsTable">
-    <thead>
-        <tr><th>ID</th><th>Name</th><th>Price</th></tr>
-    </thead>
-    <tbody>
-        <!-- Data rows will be injected by JS -->
-    </tbody>
-</table>
-
-<button onclick="loadProducts()">Load Products</button>
+<h1>MariaDB Server Connection Test</h1>
+<button onclick="checkConnection()">Check Server Connection</button>
+<div id="status"></div>
 
 <script>
-// Simulated backend data (replace with real fetch to your local backend)
-const sampleData = [
-    {id:1, name:"Pen", price:50.00},
-    {id:2, name:"Notebook", price:120.00},
-    {id:3, name:"Eraser", price:133.50}
-];
-
-function showAlert(message) {
-    alert(message);
-}
-
-function loadProducts() {
-    const tbody = document.querySelector("#productsTable tbody");
-    tbody.innerHTML = ""; // clear table
+async function checkConnection() {
+    const statusDiv = document.getElementById("status");
+    statusDiv.textContent = "⏳ Checking...";
 
     try {
-        // Replace below with fetch to backend for live data
-        // Example:
-        // fetch("http://192.168.1.100:3000/products")
-        //   .then(res => res.json())
-        //   .then(data => { ... })
-        const data = sampleData; 
-
-        data.forEach(p => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `<td>${p.id}</td><td>${p.name}</td><td>${p.price}</td>`;
-            tbody.appendChild(tr);
-        });
-
-        showAlert("✅ Products loaded successfully!");
-
+        // Replace IP + port with your backend server
+        const res = await fetch("http://10.112.201.237:3000/products"); 
+        if (!res.ok) throw new Error("HTTP error " + res.status);
+        await res.json(); // check if JSON parses
+        statusDiv.textContent = "✅ Server connected successfully!";
+        alert("✅ Server connected successfully!");
     } catch (err) {
-        showAlert("❌ Error loading products: " + err.message);
+        statusDiv.textContent = "❌ Server connection failed: " + err.message;
+        alert("❌ Server connection failed: " + err.message);
     }
 }
-
-// Optional: auto-load on page open
-window.onload = loadProducts;
 </script>
 </body>
 </html>
