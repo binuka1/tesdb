@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products Table</title>
+    <script>
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+</head>
+<body>
+    <h1>Products Table</h1>
+    <table border="1">
+        <tr><th>ID</th><th>Name</th><th>Price</th></tr>
+        <!-- Java will inject rows here -->
+        <tr><td>1</td><td>Pen</td><td>50.0</td></tr>
+        <tr><td>2</td><td>Notebook</td><td>120.0</td></tr>
+        <tr><td>3</td><td>Eraser</td><td>15.5</td></tr>
+    </table>
+
+    <script>
+        // Success alert
+        showAlert("✅ Products loaded successfully!");
+
+        // If Java detected errors while generating, it can inject:
+        // showAlert("❌ Error: Cannot connect to database");
+    </script>
+</body>
+</html>
