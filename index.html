@@ -1,42 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>MariaDB Test</title>
+<meta charset="UTF-8">
+<title>Products Table</title>
 </head>
 <body>
-    <h1>Products Table</h1>
-    <table border="1" id="productsTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<h1>Products</h1>
+<table border="1" id="productsTable">
+  <thead>
+    <tr><th>ID</th><th>Name</th><th>Price</th></tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
-    <script>
-        async function loadProducts() {
-            try {
-                const res = await fetch("http://localhost:3000/products");
-                const products = await res.json();
-                const tbody = document.querySelector("#productsTable tbody");
-                tbody.innerHTML = "";
-                products.forEach(p => {
-                    tbody.innerHTML += `<tr>
-                        <td>${p.id}</td>
-                        <td>${p.name}</td>
-                        <td>${p.price}</td>
-                    </tr>`;
-                });
-            } catch (err) {
-                console.error("❌ Failed to load products:", err);
-            }
-        }
+<script>
+async function loadProducts() {
+  try {
+    const res = await fetch("http://localhost:3000/products");
+    const products = await res.json();
+    const tbody = document.querySelector("#productsTable tbody");
+    tbody.innerHTML = "";
+    products.forEach(p => {
+      tbody.innerHTML += `<tr>
+        <td>${p.id}</td>
+        <td>${p.name}</td>
+        <td>${p.price}</td>
+      </tr>`;
+    });
+    alert("✅ Products loaded successfully!");
+  } catch (err) {
+    console.error(err);
+    alert("❌ Error loading products: " + err.message);
+  }
+}
 
-        loadProducts();
-    </script>
+loadProducts();
+</script>
 </body>
 </html>
