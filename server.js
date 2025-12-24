@@ -8,16 +8,15 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-// MariaDB connection pool
 const pool = mariadb.createPool({
     host: "localhost",
-    user: "appuser",
-    password: "1234",
+    user: "root",
+    password: "vendix",
     database: "shopdb",
     connectionLimit: 5
 });
 
-// Test route
+// Get all products
 app.get("/products", async (req, res) => {
     let conn;
     try {
@@ -32,5 +31,5 @@ app.get("/products", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
