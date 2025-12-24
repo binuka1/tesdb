@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MariaDB Products</title>
+    <title>MariaDB Test</title>
 </head>
 <body>
     <h1>Products Table</h1>
@@ -25,15 +25,14 @@
                 const tbody = document.querySelector("#productsTable tbody");
                 tbody.innerHTML = "";
                 products.forEach(p => {
-                    const row = `<tr>
+                    tbody.innerHTML += `<tr>
                         <td>${p.id}</td>
                         <td>${p.name}</td>
                         <td>${p.price}</td>
                     </tr>`;
-                    tbody.innerHTML += row;
                 });
             } catch (err) {
-                console.error(err);
+                console.error("❌ Failed to load products:", err);
             }
         }
 
