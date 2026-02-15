@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Baserow Image Test</title>
+</head>
+<body>
+
+<h2>Baserow Data Test (Image from URL Field)</h2>
+<div id="output">Loading data...</div>
+
+<script>
+const API_URL = "http://91.99.57.32/api/database/rows/table/719/?user_field_names=true";
+const API_KEY = "o1NZ0si3pdHaVCIgMCWDsyZy5HPGBeRC";
+
+async function loadData() {
+  try {
+
+    const response = await fetch(API_URL, {
+      headers: {
+        "Authorization": "Token " + API_KEY
+      }
+    });
+
+    const data = await response.json();
+    console.log("FULL API RESPONSE:", data);
+
+    if (!data.results || data.results.length === 0) {
+      document.getElementById("output").innerHTML = "No data found";
+      return;
+    }
+
+    let html = "";
+
+    data.results.forEach(row => {
+
+      const id = row.ID;
+      const url = row.URL;   // 👈 URL field
+
+      html += `
+        <div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
+          <strong>ID:</strong> ${id}<br>
+          <strong>URL:</strong> ${url}<br><br>
+
+          ${url ? `<img src="${url}" style="max-width:300px;">` : "No Image URL"}
+
+        </div>
+      `;
+    });
+
+    document.getElementById("output").innerHTML = html;
+
+  } catch (error) {
+    console.error("Error:", error);
+    document.getElementById("output").innerHTML =
+      "Error loading data. Check console.";
+  }
+}
+
+loadData();
+</script>
+
+</body>
+</html>

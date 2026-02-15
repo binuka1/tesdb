@@ -1,38 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Server Connection Test</title>
-<style>
-body { font-family: Arial; margin: 20px; background: #f5f5f5; }
-h1 { color: #333; }
-#status { margin-top: 20px; font-weight: bold; }
-button { padding: 8px 15px; margin-top: 10px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; }
-button:hover { background: #0b7dda; }
-</style>
+  <title>MyShop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <script type="module" src="./js/categories-slider.js"></script>
+   <script type="module" src="./js/product-slider.js"></script>
+
+  <script type="module">
+    import { BaserowSlider } from './js/baserow-slider.js';
+  </script>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>MariaDB Server Connection Test</h1>
-<button onclick="checkConnection()">Check Server Connection</button>
-<div id="status"></div>
 
-<script>
-async function checkConnection() {
-    const statusDiv = document.getElementById("status");
-    statusDiv.textContent = "⏳ Checking...";
+<div id="header-container"></div>
 
-    try {
-        // Replace IP + port with your backend server
-        const res = await fetch("http://10.112.201.237:3000/products"); 
-        if (!res.ok) throw new Error("HTTP error " + res.status);
-        await res.json(); // check if JSON parses
-        statusDiv.textContent = "✅ Server connected successfully!";
-        alert("✅ Server connected successfully!");
-    } catch (err) {
-        statusDiv.textContent = "❌ Server connection failed: " + err.message;
-        alert("❌ Server connection failed: " + err.message);
-    }
-}
-</script>
+
+<br>
+<div style="margin-left: 10px; margin-right:10px;">
+<baserow-slider
+  api-url="http://91.99.57.32/api/database/rows/table/719/?user_field_names=true"
+  api-key="o1NZ0si3pdHaVCIgMCWDsyZy5HPGBeRC">
+</baserow-slider></div>
+
+<br>
+<div>
+  <h4 style="margin-left: 15px;margin-bottom:15px">Product main Catogeries</h4>
+  <categories-slider></categories-slider></div>
+
+<br>
+<div><h2 style="text-align:center;">Product Slider Demo</h2>
+
+<product-slider></product-slider></div><br><br><br><br>
+
+<div id="footer-container"></div>
+
+<script src="js/include.js"></script>
 </body>
 </html>
